@@ -1,0 +1,200 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #000;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   INTRO SCREEN
+========================= */
+
+#intro-screen {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#intro-title {
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: lowercase;
+    white-space: nowrap;
+
+    animation: zoomTitle 3.5s ease-in forwards;
+}
+
+/* Title gets BIGGER and then disappears */
+
+@keyframes zoomTitle {
+
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    10% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    70% {
+        transform: scale(3);
+        opacity: 1;
+    }
+
+    90% {
+        transform: scale(7);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(15);
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   CHOICE SCREEN
+========================= */
+
+#choice-screen {
+    min-height: 100vh;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    animation: revealChoice 1s ease forwards;
+    animation-delay: 3.3s;
+}
+
+@keyframes revealChoice {
+    to {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
+/* Pillow GIF */
+
+.pillow-container {
+    width: min(700px, 90vw);
+    margin-bottom: 120px;
+}
+
+.pillow-container img {
+    width: 100%;
+    display: block;
+}
+
+
+/* Choices */
+
+.choices {
+    width: 100%;
+    max-width: 900px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+
+    padding-bottom: 100px;
+}
+
+.choice {
+    width: 280px;
+    text-align: center;
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.choice img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+}
+
+.choice h2 {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    text-transform: lowercase;
+}
+
+.choice:hover {
+    transform: scale(1.08);
+}
+
+.choice:active {
+    transform: scale(0.95);
+}
+
+.or {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    #intro-title {
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: lowercase;
+    white-space: nowrap;
+    /* remove the animation line from here */
+}
+
+
+
+#intro-title.play-intro {
+    animation: zoomTitle 3.5s ease-in forwards;
+}
+
+    .choices {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .or {
+        margin: 10px 0;
+    }
+
+    .choice {
+        width: 220px;
+    }
+
+    .choice h2 {
+        font-size: 2rem;
+    }
+
+    .pillow-container {
+        margin-bottom: 80px;
+    }
+}
+```

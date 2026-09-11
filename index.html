@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Wrong Answers Only</title>
+
+
+    <!-- =====================================================
+         CSS
+         ===================================================== -->
+
+<style>
+
+/* ===============================
+   CHAOTIC CANDY THEME
+   =============================== */
+
+:root {
+    --purple: #211A3C;
+    --pink: #FF4F9A;
+    --yellow: #FFE45E;
+    --cyan: #5CE1E6;
+    --lime: #B8F35A;
+    --cream: #FFF8E7;
+    --dark-pink: #D9367A;
+}
+
+/* ===============================
+   GENERAL
+   =============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--purple);
+    color: var(--cream);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.screen {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ===============================
+   INTRO
+   =============================== */
+
+#intro-screen {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--purple);
+    overflow: hidden;
+}
+
+#intro-title {
+    color: var(--pink);
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+    white-space: nowrap;
+
+    animation: introZoom 3s ease-in forwards;
+
+    text-shadow:
+        6px 6px 0 var(--yellow),
+        12px 12px 0 var(--cyan);
+}
+
+@keyframes introZoom {
+
+    0% {
+        transform: scale(0.4);
+        opacity: 1;
+    }
+
+    70% {
+        transform: scale(1.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(7);
+        opacity: 0;
+    }
+}
+
+/* ===============================
+   GIF SCREEN
+   =============================== */
+
+#gif-screen {
+    background: var(--yellow);
+}
+
+.gif-container {
+    padding: 20px;
+}
+
+.gif-container img {
+    max-width: 80vw;
+    max-height: 70vh;
+    border: 8px solid var(--pink);
+    border-radius: 25px;
+    box-shadow:
+        12px 12px 0 var(--purple);
+}
+
+/* ===============================
+   MENU
+   =============================== */
+
+#menu-screen {
+    background: var(--purple);
+    padding: 30px;
+}
+
+#menu-screen h2 {
+    color: var(--yellow);
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-transform: lowercase;
+
+    text-shadow:
+        4px 4px 0 var(--pink);
+}
+
+.choice-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+}
+
+.choice {
+    width: 250px;
+    padding: 15px;
+
+    background: var(--pink);
+    color: var(--purple);
+
+    border: 6px solid var(--yellow);
+    border-radius: 20px;
+
+    box-shadow:
+        10px 10px 0 var(--cyan);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.choice:hover {
+    transform: translate(-5px, -5px) rotate(-2deg);
+
+    box-shadow:
+        15px 15px 0 var(--lime);
+}
+
+.choice:active {
+    transform: translate(5px, 5px);
+
+    box-shadow:
+        3px 3px 0 var(--cyan);
+}
+
+.choice img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+
+    border-radius: 12px;
+    border: 4px solid var(--purple);
+}
+
+.choice span {
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: lowercase;
+}
+
+.or {
+    color: var(--cyan);
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+/* ===============================
+   YOU PLAY
+   =============================== */
+
+#you-screen {
+    background: var(--purple);
+    padding: 25px;
+}
+
+.game-box {
+    width: min(700px, 90vw);
+
+    padding: 40px;
+
+    background: var(--cream);
+    color: var(--purple);
+
+    border: 8px solid var(--pink);
+    border-radius: 30px;
+
+    box-shadow:
+        15px 15px 0 var(--cyan);
+}
+
+.timer {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    height: 90px;
+
+    margin-bottom: 20px;
+
+    background: var(--yellow);
+    color: var(--purple);
+
+    border: 6px solid var(--purple);
+    border-radius: 50%;
+
+    font-size: 2.5rem;
+    font-weight: 900;
+
+    box-shadow:
+        5px 5px 0 var(--pink);
+}
+
+#question {
+    font-size: 2rem;
+    line-height: 1.3;
+
+    margin: 20px 0 30px;
+
+    color: var(--purple);
+}
+
+.mic-button {
+    width: 90px;
+    height: 90px;
+
+    border: 6px solid var(--purple);
+    border-radius: 50%;
+
+    background: var(--cyan);
+    color: var(--purple);
+
+    font-size: 2.5rem;
+
+    box-shadow:
+        7px 7px 0 var(--pink);
+
+    transition: 0.15s ease;
+}
+
+.mic-button:hover {
+    transform: scale(1.08) rotate(5deg);
+    background: var(--lime);
+}
+
+.mic-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 3px 3px 0 var(--pink);
+}
+
+#heard-text {
+    min-height: 30px;
+
+    margin-top: 25px;
+
+    color: var(--dark-pink);
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ===============================
+   SMALL BUTTON
+   =============================== */
+
+.small-button {
+    margin-top: 25px;
+
+    padding: 10px 18px;
+
+    background: var(--purple);
+    color: var(--cream);
+
+    border: 3px solid var(--cyan);
+    border-radius: 10px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    transition: 0.15s ease;
+}
+
+.small-button:hover {
+    background: var(--cyan);
+    color: var(--purple);
+}
+
+/* ===============================
+   WIN / LOSE
+   =============================== */
+
+#lose-screen {
+    background: var(--pink);
+    color: var(--purple);
+    padding: 30px;
+}
+
+#win-screen {
+    background: var(--cyan);
+    color: var(--purple);
+    padding: 30px;
+}
+
+.result-gif {
+    max-width: min(500px, 80vw);
+    max-height: 50vh;
+
+    border: 8px solid var(--purple);
+    border-radius: 25px;
+
+    box-shadow:
+        12px 12px 0 var(--yellow);
+
+    margin-bottom: 25px;
+}
+
+#lose-screen h2,
+#win-screen h2 {
+    font-size: 3rem;
+    margin: 10px 0;
+
+    font-weight: 900;
+}
+
+#lose-screen p,
+#win-screen p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ===============================
+   MAIN BUTTON
+   =============================== */
+
+.main-button {
+    margin-top: 20px;
+
+    padding: 15px 35px;
+
+    background: var(--yellow);
+    color: var(--purple);
+
+    border: 5px solid var(--purple);
+    border-radius: 15px;
+
+    font-size: 1.3rem;
+    font-weight: 900;
+
+    box-shadow:
+        7px 7px 0 var(--purple);
+
+    transition: 0.15s ease;
+}
+
+.main-button:hover {
+    background: var(--lime);
+
+    transform: translate(-3px, -3px);
+
+    box-shadow:
+        10px 10px 0 var(--purple);
+}
+
+.main-button:active {
+    transform: translate(4px, 4px);
+
+    box-shadow:
+        3px 3px 0 var(--purple);
+}
+
+/* ===============================
+   ME PLAY
+   =============================== */
+
+#me-screen {
+    background: var(--purple);
+    padding: 30px;
+}
+
+#me-screen .game-box {
+    border-color: var(--cyan);
+    box-shadow:
+        15px 15px 0 var(--pink);
+}
+
+#me-screen h2 {
+    color: var(--pink);
+
+    font-size: 2.5rem;
+
+    text-shadow:
+        4px 4px 0 var(--yellow);
+}
+
+#wa-question-input {
+    width: 100%;
+
+    padding: 15px 18px;
+
+    margin: 20px 0;
+
+    background: white;
+    color: var(--purple);
+
+    border: 5px solid var(--yellow);
+    border-radius: 12px;
+
+    font-size: 1.1rem;
+
+    outline: none;
+}
+
+#wa-question-input:focus {
+    border-color: var(--pink);
+
+    box-shadow:
+        5px 5px 0 var(--cyan);
+}
+
+#wa-ask-btn {
+    padding: 13px 25px;
+
+    background: var(--pink);
+    color: var(--purple);
+
+    border: 4px solid var(--purple);
+    border-radius: 12px;
+
+    font-size: 1.1rem;
+    font-weight: 900;
+
+    box-shadow:
+        6px 6px 0 var(--yellow);
+}
+
+#wa-ask-btn:hover {
+    background: var(--lime);
+}
+
+#wa-mic-btn {
+    margin-left: 10px;
+
+    padding: 13px 18px;
+
+    background: var(--cyan);
+    color: var(--purple);
+
+    border: 4px solid var(--purple);
+    border-radius: 12px;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    box-shadow:
+        5px 5px 0 var(--pink);
+}
+
+#wa-mic-btn:hover {
+    background: var(--lime);
+}
+
+#wa-status {
+    margin: 20px 0;
+
+    color: var(--yellow);
+
+    font-weight: bold;
+}
+
+#wa-answer-box {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: var(--yellow);
+    color: var(--purple);
+
+    border: 6px solid var(--pink);
+    border-radius: 18px;
+
+    box-shadow:
+        8px 8px 0 var(--cyan);
+}
+
+#wa-answer-text {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+#wa-ask-again-btn {
+    margin-top: 20px;
+
+    padding: 12px 25px;
+
+    background: var(--lime);
+    color: var(--purple);
+
+    border: 4px solid var(--purple);
+    border-radius: 12px;
+
+    font-weight: 900;
+
+    box-shadow:
+        5px 5px 0 var(--pink);
+}
+
+/* ===============================
+   MOBILE
+   =============================== */
+
+@media (max-width: 700px) {
+
+    #intro-title {
+        font-size: 3rem;
+    }
+
+    .choice-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .choice {
+        width: 220px;
+    }
+
+    .choice img {
+        height: 170px;
+    }
+
+    .or {
+        font-size: 1.3rem;
+    }
+
+    #menu-screen h2 {
+        font-size: 2.2rem;
+    }
+
+    .game-box {
+        padding: 25px;
+    }
+
+    #question {
+        font-size: 1.5rem;
+    }
+
+    #lose-screen h2,
+    #win-screen h2 {
+        font-size: 2.2rem;
+    }
+
+}
+/* ===============================
+   VERTICAL INTRO FLOW
+   =============================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+#intro-screen,
+#gif-screen,
+#menu-screen {
+    min-height: 100vh;
+}
+
+/* Keep intro screens in the page flow */
+#intro-screen {
+    position: relative;
+}
+
+#gif-screen {
+    position: relative;
+}
+
+#menu-screen {
+    position: relative;
+}
+
+</style>
+```
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         INTRO
+         ===================================================== -->
+
+    <section id="intro-screen">
+
+        <h1 id="intro-title">
+            Wrong Answers Only!
+        </h1>
+
+    </section>
+
+
+    <!-- =====================================================
+         GIF INTRO
+         ===================================================== -->
+
+    <section
+        id="gif-screen"
+        class="screen hidden"
+    >
+
+        <div class="gif-container">
+
+            <!--
+                PUT YOUR PILLOW GIF HERE:
+                assets/pillow.gif
+            -->
+
+            <img
+                src="assets/pillow.gif"
+                alt="Pillow attack"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MENU
+         ===================================================== -->
+
+    <section
+        id="menu-screen"
+        class="screen hidden"
+    >
+
+        <h2>
+            who's playing?
+        </h2>
+
+
+        <div class="choice-container">
+
+
+            <!-- YOU PLAY -->
+
+            <button
+                class="choice"
+                id="you-play-btn"
+            >
+
+                <img
+                    src="assets/you.jpg"
+                    alt="Cat pointing at you"
+                >
+
+                <span>
+                    you play
+                </span>
+
+            </button>
+
+
+            <div class="or">
+                OR
+            </div>
+
+
+            <!-- ME PLAY -->
+
+            <button
+                class="choice"
+                id="me-play-btn"
+            >
+
+                <img
+                    src="assets/me.jpg"
+                    alt="Cat pointing at itself"
+                >
+
+                <span>
+                    me play
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         YOU PLAY
+         ===================================================== -->
+
+    <section
+        id="you-screen"
+        class="screen hidden"
+    >
+
+        <div class="game-box">
+
+
+            <div
+                class="timer"
+                id="timer"
+            >
+                20
+            </div>
+
+
+            <h2 id="question">
+                Loading question...
+            </h2>
+
+
+            <button
+                id="mic-btn"
+                class="mic-button"
+            >
+                🎤
+            </button>
+
+
+            <p id="heard-text">
+                say your wrong answer...
+            </p>
+
+
+            <button
+                id="back-menu-btn"
+                class="small-button"
+            >
+                ← menu
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOSE
+         ===================================================== -->
+
+    <section
+        id="lose-screen"
+        class="screen hidden"
+    >
+
+        <img
+            src="assets/beat.gif"
+            class="result-gif"
+            alt="Pillow attack"
+        >
+
+
+        <h2>
+            WRONG GAME 😭
+        </h2>
+
+
+        <p>
+            You either said the right answer or said nothing.
+        </p>
+
+
+        <button
+            id="lose-again-btn"
+            class="main-button"
+        >
+            try again
+        </button>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         WIN
+         ===================================================== -->
+
+    <section
+        id="win-screen"
+        class="screen hidden"
+    >
+
+        <img
+            src="assets/lost-robot.gif"
+            class="result-gif"
+            alt="Annoyed robot walking away"
+        >
+
+
+        <h2>
+            YOU WIN 😭
+        </h2>
+
+
+        <p>
+            Somehow that was wrong enough.
+        </p>
+
+
+        <button
+            id="win-again-btn"
+            class="main-button"
+        >
+            again
+        </button>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         ME PLAY
+         ===================================================== -->
+
+    <section
+        id="me-screen"
+        class="screen hidden"
+    >
+
+        <div class="me-box">
+
+
+            <h2>
+                ask me something
+            </h2>
+
+
+            <p>
+                I will definitely give you the correct answer.
+                <br>
+                probably.
+            </p>
+
+
+            <div class="question-input-row">
+
+
+                <input
+                    type="text"
+                    id="wa-question-input"
+                    placeholder="e.g. what does a cow drink?"
+                    autocomplete="off"
+                >
+
+
+                <button
+                    id="wa-mic-btn"
+                    class="input-button"
+                >
+                    🎤
+                </button>
+
+
+                <button
+                    id="wa-ask-btn"
+                    class="input-button"
+                >
+                    ➜
+                </button>
+
+
+            </div>
+
+
+            <div id="wa-status"></div>
+
+
+            <div
+                id="wa-answer-box"
+                class="hidden"
+            >
+
+                <div id="wa-answer-text"></div>
+
+            </div>
+
+
+            <button
+                id="wa-ask-again-btn"
+                class="main-button hidden"
+            >
+                ask another
+            </button>
+
+
+            <button
+                id="wa-back-btn"
+                class="small-button"
+            >
+                ← back to menu
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+   <script>
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+let audioCtx = null;
+
+function initAudio() {
+
+    if (!audioCtx) {
+        audioCtx =
+            new (window.AudioContext ||
+                window.webkitAudioContext)();
+    }
+
+    if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+    }
+}
+
+function playSound(type) {
+
+    initAudio();
+
+    const now = audioCtx.currentTime;
+
+    const oscillator =
+        audioCtx.createOscillator();
+
+    const gain =
+        audioCtx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+
+
+    /* CLICK */
+
+    if (type === "click") {
+
+        oscillator.frequency.setValueAtTime(
+            500,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            800,
+            now + 0.08
+        );
+
+        gain.gain.setValueAtTime(
+            0.15,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.1
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.1);
+    }
+
+
+    /* WIN */
+
+    if (type === "win") {
+
+        oscillator.type = "square";
+
+        oscillator.frequency.setValueAtTime(
+            400,
+            now
+        );
+
+        oscillator.frequency.setValueAtTime(
+            600,
+            now + 0.12
+        );
+
+        oscillator.frequency.setValueAtTime(
+            900,
+            now + 0.24
+        );
+
+        gain.gain.setValueAtTime(
+            0.18,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.45
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.45);
+    }
+
+
+    /* LOSE */
+
+    if (type === "lose") {
+
+        oscillator.type = "sawtooth";
+
+        oscillator.frequency.setValueAtTime(
+            500,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            80,
+            now + 0.5
+        );
+
+        gain.gain.setValueAtTime(
+            0.22,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.5
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.5);
+    }
+
+
+    /* TIMER */
+
+    if (type === "tick") {
+
+        oscillator.frequency.setValueAtTime(
+            800,
+            now
+        );
+
+        gain.gain.setValueAtTime(
+            0.08,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.05
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.05);
+    }
+
+
+    /* AI */
+
+    if (type === "ai") {
+
+        oscillator.type = "triangle";
+
+        oscillator.frequency.setValueAtTime(
+            300,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            700,
+            now + 0.15
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            250,
+            now + 0.3
+        );
+
+        gain.gain.setValueAtTime(
+            0.12,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.3
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.3);
+    }
+
+}
+
+
+/* =========================================================
+   SCREEN CONTROL
+========================================================= */
+
+function showScreen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
+
+            screen.classList.add("hidden");
+
+        });
+
+    document
+        .getElementById("intro-screen")
+        ?.classList.add("hidden");
+
+    document
+        .getElementById(id)
+        ?.classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+setTimeout(() => {
+
+    const gifScreen =
+        document.getElementById("gif-screen");
+
+    gifScreen.classList.remove("hidden");
+
+    setTimeout(() => {
+
+        gifScreen.scrollIntoView({
+            behavior: "smooth"
+        });
+
+        setTimeout(() => {
+
+            const menuScreen =
+                document.getElementById("menu-screen");
+
+            menuScreen.classList.remove("hidden");
+
+            setTimeout(() => {
+
+                menuScreen.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }, 300);
+
+        }, 1800);
+
+    }, 300);
+
+}, 3000);
+
+
+/* =========================================================
+   YOU PLAY
+========================================================= */
+
+const questions = [
+
+    "What do cows drink?",
+    "What color is the sky?",
+    "What is 2 + 2?",
+    "What do fish live in?",
+    "What animal says meow?",
+    "How many legs does a dog have?",
+    "What do you use to see?",
+    "What planet do we live on?",
+    "What do birds use to fly?",
+    "What is the opposite of hot?",
+    "What fruit is yellow and curved?",
+    "What do you wear on your feet?",
+    "What do bees make?",
+    "What animal is known as man's best friend?",
+    "What do you use to write?",
+    "What is frozen water called?",
+    "What do chickens lay?",
+    "What do you use to tell time?",
+    "What shape has three sides?",
+    "What is the capital of France?",
+    "What do you use to cut paper?",
+    "What do humans breathe?",
+    "What is the largest ocean?",
+    "What animal has a long trunk?",
+    "What do you use to brush your teeth?",
+    "What color are bananas usually?",
+    "How many days are in a week?",
+    "What do plants need from the sun?",
+    "What animal says moo?",
+    "What is 10 minus 5?",
+    "What do you drink when you are thirsty?",
+    "What flies in the sky?",
+    "What do you sleep on?",
+    "What animal has stripes and looks like a horse?",
+    "What comes after Monday?"
+
+];
+
+
+let currentQuestion = "";
+
+let timerInterval = null;
+
+let timeLeft = 20;
+
+let gameActive = false;
+
+
+/* START GAME */
+
+function startYouPlay() {
+
+    stopGame();
+
+    showScreen("you-screen");
+
+    currentQuestion =
+        questions[
+            Math.floor(
+                Math.random() *
+                questions.length
+            )
+        ];
+
+    document
+        .getElementById("question")
+        .textContent =
+            currentQuestion;
+
+    document
+        .getElementById("heard-text")
+        .textContent =
+            "say your wrong answer...";
+
+    startTimer();
+
+}
+
+
+/* TIMER */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+    timeLeft = 20;
+
+    gameActive = true;
+
+    updateTimer();
+
+    timerInterval =
+        setInterval(() => {
+
+            timeLeft--;
+
+            updateTimer();
+
+
+            if (
+                timeLeft <= 5 &&
+                timeLeft > 0
+            ) {
+
+                playSound("tick");
+
+            }
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                loseGame();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimer() {
+
+    document
+        .getElementById("timer")
+        .textContent =
+            timeLeft;
+
+}
+
+
+/* STOP GAME */
+
+function stopGame() {
+
+    clearInterval(timerInterval);
+
+    gameActive = false;
+
+    if (recognition) {
+
+        try {
+
+            recognition.stop();
+
+        } catch (error) {}
+
+    }
+
+}
+
+
+/* =========================================================
+   SPEECH RECOGNITION — YOU PLAY
+========================================================= */
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+let recognition = null;
+
+if (SpeechRecognition) {
+
+    recognition =
+        new SpeechRecognition();
+
+    recognition.lang =
+        "en-US";
+
+    recognition.continuous =
+        false;
+
+    recognition.interimResults =
+        true;
+
+
+    recognition.onstart = () => {
+
+        document
+            .getElementById("heard-text")
+            .textContent =
+                "listening... 🎤";
+
+    };
+
+
+    recognition.onresult =
+        (event) => {
+
+            let liveText = "";
+
+            let finalText = "";
+
+
+            for (
+                let i = event.resultIndex;
+                i < event.results.length;
+                i++
+            ) {
+
+                const transcript =
+                    event.results[i][0]
+                        .transcript;
+
+
+                if (
+                    event.results[i]
+                        .isFinal
+                ) {
+
+                    finalText +=
+                        transcript;
+
+                } else {
+
+                    liveText +=
+                        transcript;
+
+                }
+
+            }
+
+
+            if (liveText) {
+
+                document
+                    .getElementById(
+                        "heard-text"
+                    )
+                    .textContent =
+                        `"${liveText}" 🎤`;
+
+            }
+
+
+            if (finalText) {
+
+                document
+                    .getElementById(
+                        "heard-text"
+                    )
+                    .textContent =
+                        `"${finalText}"`;
+
+                checkAnswer(
+                    finalText
+                );
+
+            }
+
+        };
+
+
+    recognition.onerror =
+        (event) => {
+
+            console.log(
+                "Speech error:",
+                event.error
+            );
+
+
+            if (!gameActive) {
+                return;
+            }
+
+
+            if (
+                event.error ===
+                "no-speech"
+            ) {
+
+                loseGame();
+
+            } else {
+
+                document
+                    .getElementById(
+                        "heard-text"
+                    )
+                    .textContent =
+                        "couldn't hear that 😭";
+
+            }
+
+        };
+
+
+    recognition.onend = () => {
+
+        console.log(
+            "Speech recognition ended"
+        );
+
+    };
+
+}
+
+
+/* MIC BUTTON */
+
+document
+    .getElementById("mic-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!recognition) {
+
+                alert(
+                    "Speech recognition isn't supported. Try Chrome."
+                );
+
+                return;
+
+            }
+
+
+            if (!gameActive) {
+                return;
+            }
+
+
+            try {
+
+                recognition.start();
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+    );
+
+
+/* NORMALIZE ANSWER */
+
+function normalize(text) {
+
+    return text
+        .toLowerCase()
+        .replace(
+            /[^\w\s]/g,
+            ""
+        )
+        .trim();
+
+}
+
+
+/* =========================================================
+   CORRECT ANSWERS
+========================================================= */
+
+function getCorrectAnswers(question) {
+
+    const q =
+        question
+            .toLowerCase()
+            .trim();
+
+
+    if (
+        q ===
+        "what do cows drink?"
+    ) {
+
+        return ["water"];
+
+    }
+
+
+    if (
+        q ===
+        "what color is the sky?"
+    ) {
+
+        return ["blue"];
+
+    }
+
+
+    if (
+        q ===
+        "what is 2 + 2?"
+    ) {
+
+        return [
+            "4",
+            "four"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do fish live in?"
+    ) {
+
+        return [
+            "water",
+            "the water"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what animal says meow?"
+    ) {
+
+        return ["cat"];
+
+    }
+
+
+    if (
+        q ===
+        "how many legs does a dog have?"
+    ) {
+
+        return [
+            "4",
+            "four"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do you use to see?"
+    ) {
+
+        return [
+            "eyes",
+            "eye"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what planet do we live on?"
+    ) {
+
+        return [
+            "earth",
+            "the earth"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do birds use to fly?"
+    ) {
+
+        return [
+            "wings",
+            "wing"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what is the opposite of hot?"
+    ) {
+
+        return ["cold"];
+
+    }
+
+
+    if (
+        q ===
+        "what fruit is yellow and curved?"
+    ) {
+
+        return ["banana"];
+
+    }
+
+
+    if (
+        q ===
+        "what do you wear on your feet?"
+    ) {
+
+        return [
+            "shoes",
+            "socks"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do bees make?"
+    ) {
+
+        return ["honey"];
+
+    }
+
+
+    if (
+        q ===
+        "what animal is known as man's best friend?"
+    ) {
+
+        return ["dog"];
+
+    }
+
+
+    if (
+        q ===
+        "what do you use to write?"
+    ) {
+
+        return [
+            "pen",
+            "pencil"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what is frozen water called?"
+    ) {
+
+        return ["ice"];
+
+    }
+
+
+    if (
+        q ===
+        "what do chickens lay?"
+    ) {
+
+        return ["eggs", "egg"];
+
+    }
+
+
+    if (
+        q ===
+        "what do you use to tell time?"
+    ) {
+
+        return [
+            "clock",
+            "watch"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what shape has three sides?"
+    ) {
+
+        return ["triangle"];
+
+    }
+
+
+    if (
+        q ===
+        "what is the capital of france?"
+    ) {
+
+        return ["paris"];
+
+    }
+
+
+    if (
+        q ===
+        "what do you use to cut paper?"
+    ) {
+
+        return [
+            "scissors",
+            "scissor"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do humans breathe?"
+    ) {
+
+        return [
+            "air",
+            "oxygen"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what is the largest ocean?"
+    ) {
+
+        return [
+            "pacific",
+            "pacific ocean"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what animal has a long trunk?"
+    ) {
+
+        return ["elephant"];
+
+    }
+
+
+    if (
+        q ===
+        "what do you use to brush your teeth?"
+    ) {
+
+        return [
+            "toothbrush",
+            "tooth brush"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what color are bananas usually?"
+    ) {
+
+        return ["yellow"];
+
+    }
+
+
+    if (
+        q ===
+        "how many days are in a week?"
+    ) {
+
+        return [
+            "7",
+            "seven"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do plants need from the sun?"
+    ) {
+
+        return [
+            "sunlight",
+            "light"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what animal says moo?"
+    ) {
+
+        return ["cow"];
+
+    }
+
+
+    if (
+        q ===
+        "what is 10 minus 5?"
+    ) {
+
+        return [
+            "5",
+            "five"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do you drink when you are thirsty?"
+    ) {
+
+        return ["water"];
+
+    }
+
+
+    if (
+        q ===
+        "what flies in the sky?"
+    ) {
+
+        return [
+            "bird",
+            "birds",
+            "airplane",
+            "plane"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what do you sleep on?"
+    ) {
+
+        return [
+            "bed",
+            "a bed"
+        ];
+
+    }
+
+
+    if (
+        q ===
+        "what animal has stripes and looks like a horse?"
+    ) {
+
+        return ["zebra"];
+
+    }
+
+
+    if (
+        q ===
+        "what comes after monday?"
+    ) {
+
+        return ["tuesday"];
+
+    }
+
+
+    return [];
+
+}
+
+
+/* CHECK ANSWER */
+
+function checkAnswer(answer) {
+
+    if (!gameActive) {
+        return;
+    }
+
+
+    const normalizedAnswer =
+        normalize(answer);
+
+
+    const correctAnswers =
+        getCorrectAnswers(
+            currentQuestion
+        );
+
+
+    const isCorrect =
+        correctAnswers.some(
+            correct =>
+                normalizedAnswer
+                    .includes(
+                        normalize(correct)
+                    )
+        );
+
+
+    if (isCorrect) {
+
+        loseGame();
+
+    } else {
+
+        winGame();
+
+    }
+
+}
+
+
+/* LOSE */
+
+function loseGame() {
+
+    if (!gameActive) {
+        return;
+    }
+
+    playSound("lose");
+
+    stopGame();
+
+    showScreen(
+        "lose-screen"
+    );
+
+}
+
+
+/* WIN */
+
+function winGame() {
+
+    if (!gameActive) {
+        return;
+    }
+
+    playSound("win");
+
+    stopGame();
+
+    showScreen(
+        "win-screen"
+    );
+
+}
+
+
+/* =========================================================
+   MENU BUTTONS
+========================================================= */
+
+document
+    .getElementById("you-play-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            playSound("click");
+
+            startYouPlay();
+
+        }
+    );
+
+
+document
+    .getElementById("me-play-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            playSound("click");
+
+            startMePlay();
+
+        }
+    );
+
+
+/* =========================================================
+   RESULT BUTTONS
+========================================================= */
+
+document
+    .getElementById("lose-again-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            playSound("click");
+
+            startYouPlay();
+
+        }
+    );
+
+
+document
+    .getElementById("win-again-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            playSound("click");
+
+            startYouPlay();
+
+        }
+    );
+
+
+/* BACK TO MENU */
+
+document
+    .getElementById("back-menu-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+            playSound("click");
+
+            stopGame();
+
+            showScreen(
+                "menu-screen"
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ME PLAY
+========================================================= */
+
+const questionInput =
+    document.getElementById(
+        "wa-question-input"
+    );
+
+const askButton =
+    document.getElementById(
+        "wa-ask-btn"
+    );
+
+const micButton =
+    document.getElementById(
+        "wa-mic-btn"
+    );
+
+const statusText =
+    document.getElementById(
+        "wa-status"
+    );
+
+const answerBox =
+    document.getElementById(
+        "wa-answer-box"
+    );
+
+const answerText =
+    document.getElementById(
+        "wa-answer-text"
+    );
+
+const askAgainButton =
+    document.getElementById(
+        "wa-ask-again-btn"
+    );
+
+
+/* START ME PLAY */
+
+function startMePlay() {
+
+    showScreen(
+        "me-screen"
+    );
+
+    questionInput.value = "";
+
+    statusText.textContent =
+        "ask me anything...";
+
+    answerBox.classList.add(
+        "hidden"
+    );
+
+    askAgainButton.classList.add(
+        "hidden"
+    );
+
+}
+
+
+/* ASK AI */
+
+async function askWrongAnswer() {
+
+    const question =
+        questionInput.value.trim();
+
+
+    if (!question) {
+
+        statusText.textContent =
+            "Ask me something first 😭";
+
+        return;
+
+    }
+
+
+    statusText.textContent =
+        "thinking of the worst possible answer...";
+
+
+    playSound("ai");
+
+
+    answerBox.classList.add(
+        "hidden"
+    );
+
+    askAgainButton.classList.add(
+        "hidden"
+    );
+
+
+    askButton.disabled =
+        true;
+
+    micButton.disabled =
+        true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/wrong-answer",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        question
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Something went wrong."
+            );
+
+        }
+
+
+        answerText.textContent =
+            data.answer;
+
+
+        answerBox.classList.remove(
+            "hidden"
+        );
+
+
+        askAgainButton.classList.remove(
+            "hidden"
+        );
+
+
+        statusText.textContent =
+            "there. definitely correct. trust me.";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        statusText.textContent =
+            "oops: " +
+            error.message;
+
+    }
+
+
+    askButton.disabled =
+        false;
+
+    micButton.disabled =
+        false;
+
+}
+
+
+/* ASK BUTTON */
+
+askButton.addEventListener(
+    "click",
+    () => {
+
+        playSound("click");
+
+        askWrongAnswer();
+
+    }
+);
+
+
+/* ASK AGAIN */
+
+askAgainButton.addEventListener(
+    "click",
+    () => {
+
+        playSound("click");
+
+        answerBox.classList.add(
+            "hidden"
+        );
+
+        askAgainButton.classList.add(
+            "hidden"
+        );
+
+        questionInput.value = "";
+
+        statusText.textContent =
+            "ask me something else...";
+
+    }
+);
+
+
+/* =========================================================
+   ME PLAY SPEECH
+========================================================= */
+
+let meRecognition = null;
+
+if (SpeechRecognition) {
+
+    meRecognition =
+        new SpeechRecognition();
+
+    meRecognition.lang =
+        "en-US";
+
+    meRecognition.continuous =
+        false;
+
+    meRecognition.interimResults =
+        false;
+
+
+    meRecognition.onstart =
+        () => {
+
+            statusText.textContent =
+                "listening... 🎤";
+
+        };
+
+
+    meRecognition.onresult =
+        (event) => {
+
+            const transcript =
+                event.results[0][0]
+                    .transcript;
+
+            questionInput.value =
+                transcript;
+
+            statusText.textContent =
+                "got it 😭";
+
+        };
+
+
+    meRecognition.onerror =
+        (event) => {
+
+            console.log(
+                "ME PLAY speech error:",
+                event.error
+            );
+
+            statusText.textContent =
+                "couldn't hear you 😭";
+
+        };
+
+}
+
+
+/* ME PLAY MIC */
+
+micButton.addEventListener(
+    "click",
+    () => {
+
+        playSound("click");
+
+
+        if (!meRecognition) {
+
+            alert(
+                "Speech recognition isn't supported. Try Chrome."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            meRecognition.start();
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   END
+========================================================= */
+
+</script>
+
+</body>
+
+</html>
