@@ -1,11 +1,11 @@
 
 Wrong Answers Only! 🎯<br>
 Basic Details
-Team Name: ZenX
-Team Members
-Member 1: Ayisha Zahrin - Government Engineering College Kozhikode
-Member 2: Sara Ajeeba - Government Engineering College Kozhikode
-Project Description:
+Team Name: ZenX <br><br>
+Team Members<br>
+Member 1: Ayisha Zahrin - Government Engineering College Kozhikode<br>
+Member 2: Sara Ajeeba - Government Engineering College Kozhikode<br><br>
+Project Description:<br>
 🤪 Wrong Answers Only
 
 Welcome to the game where being wrong is the whole point! 🎯😂
@@ -17,13 +17,13 @@ Players are challenged with fun questions and must give the most creative, ridic
 ✅ Wrong answers? ABSOLUTELY!
 🏆 Funniest answer? YOU WIN!
 
-A simple, chaotic, and entertaining game designed to turn ordinary questions into maximum nonsense and maximum fun! 😂🔥
+A simple, chaotic, and entertaining game designed to turn ordinary questions into maximum nonsense and maximum fun! 😂🔥<br><br>
 
-The Problem (that doesn't exist)
-People have been answering questions correctly for far too long. This has caused an alarming shortage of confidently wrong answers, unnecessary knowledge, and absolutely avoidable pillow attacks.
+The Problem (that doesn't exist)<br>
+People have been answering questions correctly for far too long. This has caused an alarming shortage of confidently wrong answers, unnecessary knowledge, and absolutely avoidable pillow attacks.<br><br>
 
-The Solution (that nobody asked for)
-Wrong Answers Only is a game where being wrong is the only way to win. Answer questions incorrectly, survive the timer, and use your voice to prove that you have absolutely no idea what you're talking about. And if you let the AI play, it will confidently make things up for you.
+The Solution (that nobody asked for)<br>
+Wrong Answers Only is a game where being wrong is the only way to win. Answer questions incorrectly, survive the timer, and use your voice to prove that you have absolutely no idea what you're talking about. And if you let the AI play, it will confidently make things up for you.<br><br>
 
 Technical Details
 Technologies/Components Used
