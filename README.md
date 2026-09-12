@@ -25,69 +25,69 @@ People have been answering questions correctly for far too long. This has caused
 The Solution (that nobody asked for)<br>
 Wrong Answers Only is a game where being wrong is the only way to win. Answer questions incorrectly, survive the timer, and use your voice to prove that you have absolutely no idea what you're talking about. And if you let the AI play, it will confidently make things up for you.<br><br>
 
-Technical Details
-Technologies/Components Used
-For Software:
+Technical Details<br>
+Technologies/Components Used<br>
+For Software:<br>
 
-Languages used
+Languages used<br>
 
-HTML
-CSS
-JavaScript
+HTML<br>
+CSS<br>
+JavaScript<br><br>
 
-Frameworks used
-Node.js
-Express.js
+Frameworks used<br>
+Node.js<br>
+Express.js<br><br>
 
-Libraries used
-dotenv
-Web Speech API
-Web Audio API
+Libraries used<br>
+dotenv<br>
+Web Speech API<br>
+Web Audio API<br><br>
 
-Tools used
-VS Code
-Git & GitHub
-Groq API
-Browser Developer Tools
+Tools used<br>
+VS Code<br>
+Git & GitHub<br>
+Groq API<br>
+Browser Developer Tools<br><br>
 
-For Hardware:
+For Hardware:<br>
 
-Main components
+Main components<br>
 
-Laptop/PC
-Microphone
-Speakers/Headphones
+Laptop/PC<br>
+Microphone<br>
+Speakers/Headphones<br>
 
-Specifications
+Specifications<br>
 
-Any modern laptop/PC capable of running Node.js and a modern web browser
-Working microphone for voice input
-Internet connection for AI-generated answers
+Any modern laptop/PC capable of running Node.js and a modern web browser<br>
+Working microphone for voice input<br>
+Internet connection for AI-generated answers<br><br>
 
-Tools required
+Tools required<br>
 
-VS Code
-Node.js
-Modern web browser
-Implementation
-For Software:
+VS Code<br>
+Node.js<br>
+Modern web browser<br>
+Implementation<br><br>
+For Software:<br>
 
-Installation
-npm install
+Installation<br>
+npm install<br>
 
-Create a .env file in the project root and add the Groq API key:
+Create a .env file in the project root and add the Groq API key:<br>
 
-GROQ_API_KEY=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
+GROQ_API_KEY=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<br>
 
-Run
-npm start
+Run<br>
+npm start<br>
 
-Then open:
+Then open:<br>
 
-http://localhost:3000
+http://localhost:3000<br><br>
 
-Project Documentation
-For Software:
+Project Documentation<br>
+For Software:<br>
 
 Screenshots 
 <img width="1832" height="933" alt="Screenshot 2026-09-12 045833" src="https://github.com/user-attachments/assets/06856f0a-63b3-4f7f-8b75-b040a38afc23" />
